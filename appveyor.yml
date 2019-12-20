@@ -2,9 +2,9 @@ image: Ubuntu
 stack: python 3.6
 install:
   - "sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel"
-  - "sudo add-apt-repository universe"
   - "sudo apt update"
-  - "sudo apt install chromium-browser tesseract-ocr python3-pil python3-pip -y"
+  - "sudo apt install tesseract-ocr python3-pil python3-pip -y"
+  - "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo dpkg -i google-chrome-stable_current_amd64.deb"
   - "python3 -m pip install -r requirements.txt"
 build: off
 test_script:
