@@ -34,6 +34,6 @@ def image_processing(pixel):
     return pixel
 
 
-def bypass_captcha(pixel):
+def get_captcha_result(pixel):
     pixel = image_processing(pixel)
     return image_to_string(pixel, config="--dpi 120 --oem 3 -c tessedit_char_whitelist=0123456789")
