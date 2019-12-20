@@ -1,16 +1,18 @@
 import logging
 import sys
+from getpass import getpass
 from sys import exit
 
-from selenium import webdriver
 import selenium.common.exceptions as selenium_exceptions
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium import webdriver
 from selenium.webdriver.support import expected_conditions
-from config import Config as WDConfig
+from selenium.webdriver.support.ui import WebDriverWait
+
 import webdriver as wd_manager
+from config import Config as WDConfig
 from error import InvalidCredentialsError, TooManyAttemptsError
 from solver.captcha import get_captcha_from_browser
-from getpass import getpass
+
 
 def configure_logging():
     logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
