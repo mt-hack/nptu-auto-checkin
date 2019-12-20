@@ -6,7 +6,7 @@ from pathlib import Path
 from numpy import array
 from PIL import Image
 
-from captcha_solver import get_captcha_result
+from solver.captcha import get_captcha_result
 
 
 class TestCaptcha(unittest.TestCase):

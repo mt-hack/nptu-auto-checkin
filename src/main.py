@@ -6,7 +6,7 @@ from PIL import Image
 from numpy import array
 from selenium import webdriver
 
-from captcha_solver import get_captcha_result
+from solver import get_captcha_result
 
 
 def get_captcha_from_site():
