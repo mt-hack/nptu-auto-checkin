@@ -5,8 +5,11 @@ from pathlib import Path
 
 from numpy import array
 from PIL import Image
+import sys
 
-from solver.captcha import get_captcha_result
+sys.path.append("..")
+
+from src.solver.captcha import get_captcha
 
 
 class TestCaptcha(unittest.TestCase):
@@ -18,7 +21,7 @@ class TestCaptcha(unittest.TestCase):
         print(samples)
         for sample in samples:
             image = array(Image.open(sample).convert('L'))
-            result = get_captcha_result(image)
+            result = get_captcha(image)
             expected_result = Path(sample).stem
             print(f'Expected {expected_result}, got {result}')
             self.assertEqual(result, expected_result)
