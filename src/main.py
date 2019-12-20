@@ -6,7 +6,7 @@ from PIL import Image
 from numpy import array
 from selenium import webdriver
 
-from solver import get_captcha_result
+from .solver.captcha import get_captcha
 
 
 def get_captcha_from_site():
@@ -32,7 +32,7 @@ browser.find_element_by_id("LoginDefault_ibtLoginStd").click()
 sleep(2.5)
 
 while True:
-    browser.find_element_by_id("LoginStd_txtCheckCode").send_keys(get_captcha_result(get_captcha_from_site()))
+    browser.find_element_by_id("LoginStd_txtCheckCode").send_keys(get_captcha(get_captcha_from_site()))
     browser.find_element_by_id("LoginStd_txtAccount").send_keys("Account")
     browser.find_element_by_id("LoginStd_txtPassWord").send_keys("Password")
     browser.find_element_by_id("LoginStd_ibtLogin").click()
