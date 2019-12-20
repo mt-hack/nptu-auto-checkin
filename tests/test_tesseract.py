@@ -9,7 +9,7 @@ import sys
 
 sys.path.append("..")
 
-from src.solver.captcha import get_captcha
+from src.solver.captcha import get_captcha_text, load_grayscale_image
 
 
 class TestCaptcha(unittest.TestCase):
@@ -20,8 +20,8 @@ class TestCaptcha(unittest.TestCase):
         samples = glob(path.join(sample_path, '*.jpg'))
         print(samples)
         for sample in samples:
-            image = array(Image.open(sample).convert('L'))
-            result = get_captcha(image)
+            image = array(load_grayscale_image(sample))
+            result = get_captcha_text(image)
             expected_result = Path(sample).stem
             print(f'Expected {expected_result}, got {result}')
             self.assertEqual(result, expected_result)

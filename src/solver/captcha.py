@@ -1,5 +1,6 @@
-from numpy import full
+from numpy import full, array
 from pytesseract import image_to_string
+from PIL import Image
 
 
 def image_processing(pixel):
@@ -34,6 +35,6 @@ def image_processing(pixel):
     return pixel
 
 
-def get_captcha(pixel):
+def get_captcha_text(pixel):
     pixel = image_processing(pixel)
     return image_to_string(pixel, config="--dpi 120 --oem 3 -c tessedit_char_whitelist=0123456789")
