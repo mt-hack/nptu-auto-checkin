@@ -1,7 +1,9 @@
 image: Ubuntu
 stack: python 3.6
 install:
-  - "sudo apt-get install tesseract-ocr python3-pil python3-pip -y"
+  - "sudo add-apt-repository universe"
+  - "sudo apt update"
+  - "sudo apt install chromium-browser tesseract-ocr python3-pil python3-pip -y"
   - "python3 -m pip install -r requirements.txt"
 build: off
 test_script:
