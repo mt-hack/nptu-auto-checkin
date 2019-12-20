@@ -9,7 +9,7 @@ import sys
 
 sys.path.append("..")
 
-from src.solver.captcha import get_captcha_text, load_grayscale_image
+from src.solver.captcha import get_captcha_text
 
 
 class TestCaptcha(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestCaptcha(unittest.TestCase):
         samples = glob(path.join(sample_path, '*.jpg'))
         print(samples)
         for sample in samples:
-            image = array(load_grayscale_image(sample))
+            image = array(Image.open(sample).convert('L'))
             result = get_captcha_text(image)
             expected_result = Path(sample).stem
             print(f'Expected {expected_result}, got {result}')
