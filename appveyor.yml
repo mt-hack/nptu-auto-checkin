@@ -1,6 +1,7 @@
 image: Ubuntu
 stack: python 3.6
 install:
+  - "sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel"
   - "sudo add-apt-repository universe"
   - "sudo apt update"
   - "sudo apt install chromium-browser tesseract-ocr python3-pil python3-pip -y"
