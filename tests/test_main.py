@@ -4,7 +4,7 @@ from unittest import TestCase
 
 sys.path.append("..")
 
-from solver.captcha import get_random_png
+from src.solver.captcha import get_random_png
 
 
 class TestMain(TestCase):
