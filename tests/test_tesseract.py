@@ -1,18 +1,18 @@
-import unittest
+import sys
 from glob import glob
 from os import path
 from pathlib import Path
+from unittest import TestCase
 
-from numpy import array
 from PIL import Image
-import sys
+from numpy import array
 
 sys.path.append("..")
 
 from src.solver.captcha import get_captcha_text
 
 
-class TestCaptcha(unittest.TestCase):
+class TestCaptcha(TestCase):
     def test_captcha(self):
         cwd = Path(__file__).parent
         sample_path = Path(f'{cwd}/samples').resolve()
@@ -25,7 +25,3 @@ class TestCaptcha(unittest.TestCase):
             expected_result = Path(sample).stem
             print(f'Expected {expected_result}, got {result}')
             self.assertEqual(result, expected_result)
-
-
-if __name__ == '__main__':
-    unittest.main()
