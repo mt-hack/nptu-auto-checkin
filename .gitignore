@@ -202,3 +202,7 @@ fabric.properties
 
 # Codealike
 codealike.json
+
+# ChromeDrivers
+**/ChromeDriver
+**/chromedriver-download.zip
