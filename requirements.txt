@@ -1,5 +1,7 @@
+requests
 numpy
 urllib3
 pytesseract
 Pillow
 selenium
+tqdm
