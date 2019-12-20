@@ -1,6 +1,6 @@
 image: Ubuntu
-init:
+stack: python 3.8
+install:
   - "sudo apt-get install tesseract-ocr -y"
-  - "python3 -m pip install --upgrade pip"
 build_script:
   - "python3 setup.py build"
