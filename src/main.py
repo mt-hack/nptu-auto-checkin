@@ -27,9 +27,10 @@ def main():
         password = getpass("Enter your password:")
     configure_logging()
     webdriver_file = wd_manager.get_driver_package()
-    opts = webdriver.ChromeOptions()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--force-device-scale-factor=1')
     try:
-        browser = webdriver.Chrome(webdriver_file, options=opts)
+        browser = webdriver.Chrome(webdriver_file, options=options)
     except selenium_exceptions.WebDriverException:
         logging.critical("You must install Chrome before running this!")
         exit(1)
@@ -40,7 +41,8 @@ def main():
     for attempt in range(1, WDConfig.attempts):
         try:
             logging.info(f"Attempting to login... [Attempt: {attempt}/{WDConfig.attempts}]")
-            browser.find_element_by_id("LoginStd_txtCheckCode").send_keys(get_captcha_from_browser(browser))
+            captcha = get_captcha_from_browser(browser)
+            browser.find_element_by_id("LoginStd_txtCheckCode").send_keys(captcha)
             browser.find_element_by_id("LoginStd_txtAccount").send_keys(username)
             browser.find_element_by_id("LoginStd_txtPassWord").send_keys(password)
             browser.find_element_by_id("LoginStd_ibtLogin").click()
