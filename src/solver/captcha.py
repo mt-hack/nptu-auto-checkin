@@ -1,6 +1,8 @@
+import os
 import random
 import string
 import tempfile
+from io import BytesIO
 from pathlib import Path
 
 from PIL import Image
@@ -46,21 +48,18 @@ def get_captcha_text(pixel):
 
 
 def get_captcha_from_browser(browser_instance):
-    temp_dir = tempfile.gettempdir()
-    temp_file = str(Path(temp_dir, get_random_png(15)))
-    if browser_instance.save_screenshot(temp_file):
-        image = browser_instance.find_element_by_id("imgCaptcha")
-        left = image.location["x"]
-        top = image.location["y"]
-        right = left + image.size["width"]
-        bottom = top + image.size["height"]
-        captcha = Image \
-            .open(temp_file) \
-            .convert('L') \
-            .crop((left, top, right, bottom))
-        return get_captcha_text(array(captcha))
-    else:
-        raise IOError("Failed to save a screenshot of the login page.")
+    stream = browser_instance.get_screenshot_as_png()
+    ss = BytesIO(stream)
+    image = browser_instance.find_element_by_id("imgCaptcha")
+    left = image.location["x"]
+    top = image.location["y"]
+    right = left + image.size["width"]
+    bottom = top + image.size["height"]
+    captcha = Image \
+        .open(ss) \
+        .convert('L') \
+        .crop((left, top, right, bottom))
+    return get_captcha_text(array(captcha))
 
 
 def get_random_png(length):
