@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 import webdriver as wd_manager
 from config import Config as WDConfig
-from error import InvalidCredentialsError, TooManyAttemptsError
+from error import InvalidCredentialsError, TooManyAttemptsError, TesseractError
 from solver.captcha import get_captcha_from_browser
 
 
@@ -46,9 +46,11 @@ def main():
             browser.find_element_by_id("LoginStd_ibtLogin").click()
             WebDriverWait(browser, 3).until(expected_conditions.alert_is_present(), "Expected alert from the login page.")
             alert = browser.switch_to.alert
-            if "驗證碼" in alert.text:
+            if "驗證碼不符" in alert.text:
                 alert.accept()
                 continue
+            if "驗證碼未輸入" in alert.text:
+                raise TesseractError("Tesseract is not working correctly.")
             if "帳號或密碼錯誤" in alert.text:
                 raise InvalidCredentialsError("Username or password incorrect.")
             if "錯誤超過三次" in alert.text:
