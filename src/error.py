@@ -1,4 +1,4 @@
-class InvalidCredentialsError(Exception):
+class PreAuthenticationError(Exception):
     def __init__(self, message):
         self.message = message
 
@@ -6,15 +6,7 @@ class InvalidCredentialsError(Exception):
         return self.message
 
 
-class TooManyAttemptsError(Exception):
-    def __init__(self, message):
-        self.message = message
-
-    def __str__(self):
-        return self.message
-
-
-class TesseractError(Exception):
+class PostAuthenticationError(Exception):
     def __init__(self, message):
         self.message = message
 
