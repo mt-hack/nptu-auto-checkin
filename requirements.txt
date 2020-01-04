@@ -5,3 +5,5 @@ pytesseract
 Pillow
 selenium
 tqdm
+jsonpickle
+schedule
