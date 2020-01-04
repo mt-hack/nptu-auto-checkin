@@ -1,9 +1,4 @@
-import os
-import random
-import string
-import tempfile
 from io import BytesIO
-from pathlib import Path
 
 from PIL import Image
 from numpy import full, array
@@ -60,8 +55,3 @@ def get_captcha_from_browser(browser_instance):
         .convert('L') \
         .crop((left, top, right, bottom))
     return get_captcha_text(array(captcha))
-
-
-def get_random_png(length):
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(length)) + ".png"
