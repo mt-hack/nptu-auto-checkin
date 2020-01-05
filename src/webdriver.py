@@ -3,6 +3,7 @@ import unicodedata
 import zipfile
 from pathlib import Path
 from sys import platform
+from os import chmod, stat
 
 import requests
 from tqdm import tqdm
@@ -41,6 +42,8 @@ def get_driver_package():
                     zip_entry.filename = target_driver_path.name
                     zip_handle.extract(zip_entry)
         if target_driver_path.is_file():
+            chmod(target_driver_path, stat(target_driver_path).st_mode | 0o111)
+
             logging.info("Extracted ChromeDriver.")
             return str(target_driver_path)
         else:
