@@ -54,6 +54,9 @@ def checkin(browser, is_check_in, job_description):
     except selenium_exceptions.TimeoutException:
         pass
     try:
+        if is_check_in == None:
+            is_check_in = browser.find_element_by_id('B4001A_lblIN').text == ""
+
         if is_check_in:
             checkin_button = browser.find_element_by_name('B4001A:btnIN')
             if not checkin_button:
@@ -68,6 +71,16 @@ def checkin(browser, is_check_in, job_description):
                 raise PostAuthenticationError("Work description field cannot be found.")
             work_description_field.send_keys(job_description)
             checkout_button.click()
+        
+        try:
+            WebDriverWait(browser, 3).until(expected_conditions.alert_is_present(),
+                                            "Expected a logout prompt, got nothing.")
+            alert = browser.switch_to.alert
+            logging.info(alert.text)
+            alert.accept()
+        except selenium_exceptions.TimeoutException as exception:
+            logging.critical(exception)
+            pass
     except PostAuthenticationError as exception:
         logging.critical(exception)
     finally:
@@ -137,16 +150,14 @@ def main():
     configure_logging()
     username = WDConfig.username
     password = WDConfig.password
-    if username is None:
+    if username is None or password is None:
         username = input("Enter your username:")
-    if password is None:
         password = getpass("Enter your password:")
-    # implement json parsing and use the schedule package
-    jobs = get_jobs()
-    if os.environ['ENVIRONMENT'] == "DEBUG":
-        begin_checkin(username, password, True, None)
-        #begin_checkin(username, password, False, "Test")
+        begin_checkin(username, password, None, "處理相關指定之事務。")
     else:
+        jobs = get_jobs()
+        # implement json parsing and use the schedule package
+
         for job in jobs:
             if job['DayOfWeek'] == 0:
                 schedule.every().monday.at(job['StartTime']).do(begin_checkin,
@@ -172,6 +183,16 @@ def main():
                 schedule.every().friday.at(job['StartTime']).do(begin_checkin,
                                                                 [username, password, True, None])
                 schedule.every().friday.at(job['EndTime']).do(begin_checkin,
+                                                              [username, password, False, job['WorkDescription']])
+            if job['DayOfWeek'] == 5:
+                schedule.every().saturday.at(job['StartTime']).do(begin_checkin,
+                                                                [username, password, True, None])
+                schedule.every().saturday.at(job['EndTime']).do(begin_checkin,
+                                                              [username, password, False, job['WorkDescription']])
+            if job['DayOfWeek'] == 6:
+                schedule.every().sunday.at(job['StartTime']).do(begin_checkin,
+                                                                [username, password, True, None])
+                schedule.every().sunday.at(job['EndTime']).do(begin_checkin,
                                                               [username, password, False, job['WorkDescription']])
         while True:
             schedule.run_pending()
