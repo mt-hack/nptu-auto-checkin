@@ -1,5 +1,4 @@
 import logging
-from datetime import datetime
 
 import jsonpickle
 
@@ -19,21 +18,6 @@ def get_jobs():
             Job(3, "13:10", "15:00", "文書處理")
         ]))
     return model['Jobs']
-    # job_list = []
-    # today = datetime.today()
-    # for job in model['Jobs']:
-    #     logging.info("Valid job(s) for today:")
-    #     parsed_start_time = datetime.strptime(job['StartTime'], "%H:%M:%S")
-    #     parsed_end_time = datetime.strptime(job['EndTime'], '%H:%M:%S')
-    #     parsed_start_date = datetime.strptime(
-    #         f'{today.year} {today.month} {today.day} {parsed_start_time.hour} {parsed_start_time.minute}',
-    #         '%Y %m %d %H %S')
-    #     parsed_end_date = datetime.strptime(
-    #         f'{today.year} {today.month} {today.day} {parsed_end_time.hour} {parsed_end_time.minute}',
-    #         '%Y %m %d %H %S')
-    #     logging.info(parsed_start_date)
-    #     logging.info(parsed_end_date)
-    #     job_list.append([parsed_start_date, parsed_end_date])
 
 
 def read_model():

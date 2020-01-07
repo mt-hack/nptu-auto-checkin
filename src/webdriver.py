@@ -18,7 +18,6 @@ def get_driver_package():
         return str(target_driver_path)
     else:
         target_version = '79.0.3945.36'
-        remote_link = ''
         if platform.startswith('win32'):
             remote_link = f'https://chromedriver.storage.googleapis.com/{target_version}/chromedriver_win32.zip'
         elif platform.startswith('linux'):
