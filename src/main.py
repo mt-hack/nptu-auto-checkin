@@ -54,7 +54,7 @@ def checkin(browser, is_check_in, job_description):
     except selenium_exceptions.TimeoutException:
         pass
     try:
-        if is_check_in == None:
+        if is_check_in is None:
             is_check_in = browser.find_element_by_id('B4001A_lblIN').text == ""
 
         if is_check_in:
