@@ -1,5 +1,4 @@
 import logging
-import os
 import time
 from getpass import getpass
 from sys import exit
@@ -45,8 +44,8 @@ def checkin(browser, is_check_in, job_description):
         alert = browser.switch_to.alert
         if "請先設定" in alert.text:
             alert.accept()
-            # raise PostAuthenticationError(
-            #    "Contract duration not set. Please set it first manually before attempting to check-in.")
+            raise PostAuthenticationError(
+                "Contract duration not set. Please set it first manually before attempting to check-in.")
     except PostAuthenticationError as exception:
         logging.critical(exception)
         logout(browser)
