@@ -1,9 +1,8 @@
-requests
-numpy
-urllib3
-pytesseract
-Pillow
-selenium
-tqdm
-jsonpickle
-schedule
+requests==2.22.0
+numpy==1.18.1
+selenium==3.141.0
+tqdm==4.41.1
+pytesseract==0.3.1
+jsonpickle==1.2
+schedule==0.6.0
+Pillow==7.0.0
