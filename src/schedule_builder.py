@@ -2,8 +2,8 @@ import logging
 
 import jsonpickle
 
-from models.Job import Job
-from models.Schedule import Schedule
+from src.models.Job import Job
+from src.models.Schedule import Schedule
 
 JSONFileName = "schedule.json"
 

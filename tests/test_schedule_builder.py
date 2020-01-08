@@ -1,8 +1,11 @@
+import sys
 from unittest import TestCase
 
-from models.Job import Job
-from models.Schedule import Schedule
-from schedule_builder import write_model
+sys.path.append("..")
+
+from src.models.Job import Job
+from src.models.Schedule import Schedule
+from src.schedule_builder import write_model
 
 
 class Test(TestCase):
